@@ -43,12 +43,12 @@ initializeDBandServer();
 app.get('/doctors/', async (req, res) => {
     try {
         const {specialization = ""} = req.query;
-        const specRegex = new RegExp(specialization);
+        const specRegex = new RegExp(specialization, "i");
 
         const result = await doctors.find({specialization: specRegex});
         res.json(result);
     } catch (error) {
-        res.status(5000).send({error: 'Error fetching doctor details'});
+        res.status(500).send({error: "Error fetching doctor details"});
     }
 });
 
